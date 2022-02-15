@@ -1,3 +1,15 @@
+## Running in JVM mode
+
+```shell script
+./mvnw mn:run
+```
+
+## Creating a native image
+
+```shell script
+./mvnw package -Dpackaging=native-image
+```
+
 ## Micronaut 3.2.7 Documentation
 
 - [User Guide](https://docs.micronaut.io/3.2.7/guide/index.html)
