@@ -1,0 +1,423 @@
+openapi: 3.0.3
+info:
+  title: FidelityAPI
+  description: API of the mock quarkus fidelity card app thingy
+  version: 0.0.1
+  contact:
+    name: Maxime
+    url: https://you-wish.com/
+#servers:
+#  - url: https://one-day-maybe.com/
+#    description: Production server
+security:
+  - IAMKeyAuthUserid: [ ]
+  - IAMKeyAuthApplication: [ ]
+
+paths:
+  /customer/:
+    post:
+      operationId: createCustomer
+      tags:
+        - Customer
+      description: Creates customer
+      responses:
+        200:
+          description: Customer successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/AuthenticationError'
+        403:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/BusinessError'
+        500:
+          $ref: '#/components/responses/ServerError'
+  /customer/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: The customer ID
+        schema:
+          type: integer
+    get:
+      operationId: getCustomerMetadatas
+      tags:
+        - Customer
+      description: Returns metadata of a customer
+      responses:
+        200:
+          description: The query is successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/AuthenticationError'
+        403:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+    put:
+      operationId: updateCustomerMetadatas
+      tags:
+        - Customer
+      description: Updates customer's metadata
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        200:
+          description: Customer successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/AuthenticationError'
+        403:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/BusinessError'
+        500:
+          $ref: '#/components/responses/ServerError'
+    delete:
+      operationId: deleteCustomer
+      tags:
+        - Customer
+      description: Deletes a customer
+      responses:
+        204:
+          description: The customer is deleted with success
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/AuthenticationError'
+        403:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/BusinessError'
+        500:
+          $ref: '#/components/responses/ServerError'
+
+  /customer/{id}/visit/{businessId}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: The customer ID
+        schema:
+          type: integer
+      - in: path
+        name: businessId
+        required: true
+        description: The business ID
+        schema:
+          type: integer
+    put:
+      operationId: addVisit
+      tags:
+        - Visit
+      description: Registers a new visit
+      responses:
+        200:
+          description: Visit successfully recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Visit'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/AuthenticationError'
+        403:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/BusinessError'
+        500:
+          $ref: '#/components/responses/ServerError'
+
+  /customer/{id}/loyalty/{businessId}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: The customer ID
+        schema:
+          type: integer
+      - in: path
+        name: businessId
+        required: true
+        description: The business ID
+        schema:
+          type: integer
+    get:
+      operationId: getCustomerloyalty
+      tags:
+        - Customer
+      description: Returns loyalty of a customer to a business
+      responses:
+        200:
+          description: The query is successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loyalty'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/AuthenticationError'
+        403:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+  /business/:
+    post:
+      operationId: createBusiness
+      tags:
+        - Business
+      description: Creates business
+      responses:
+        200:
+          description: Business successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Business'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/AuthenticationError'
+        403:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/BusinessError'
+        500:
+          $ref: '#/components/responses/ServerError'
+  /business/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: The business ID
+        schema:
+          type: integer
+    get:
+      operationId: getBusinessMetadatas
+      tags:
+        - Business
+      description: Returns metadata of a business
+      responses:
+        200:
+          description: The query is successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Business'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/AuthenticationError'
+        403:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+    put:
+      operationId: updateBusinessMetadatas
+      tags:
+        - Business
+      description: Updates business's metadata
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Business'
+      responses:
+        200:
+          description: Business successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Business'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/AuthenticationError'
+        403:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/BusinessError'
+        500:
+          $ref: '#/components/responses/ServerError'
+    delete:
+      operationId: deleteBusiness
+      tags:
+        - Business
+      description: Deletes a business
+      responses:
+        204:
+          description: The business is deleted with success
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/AuthenticationError'
+        403:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/BusinessError'
+        500:
+          $ref: '#/components/responses/ServerError'
+
+#***********************************************************************************************************************
+
+components:
+  schemas:
+    Customer:
+      description: Customer object
+      type: object
+      properties:
+        customerId:
+          type: integer
+          description: Identifier of the customer
+          readOnly: true
+        firstName:
+          type: string
+          description: First name of customer
+        lastName:
+          type: string
+          description: Last name of customer
+        email:
+          type: string
+          description: Email of customer
+    Business:
+      description: Business object
+      type: object
+      properties:
+        businessId:
+          type: integer
+          description: Identifier of the business
+          readOnly: true
+        name:
+          type: string
+          description: Name of business
+        email:
+          type: string
+          description: Email of business
+    Visit:
+      description: Visit of a customer to a business
+      type: object
+      properties:
+        businessId:
+          type: integer
+          description: Identifier of the business
+          readOnly: true
+        customerId:
+          type: integer
+          description: Identifier of the customer
+          readOnly: true
+        date:
+          type: string
+          description: Date of visit
+    Loyalty:
+      description: Loyalty count of customer per business
+      type: object
+      properties:
+        businessId:
+          type: integer
+          description: Identifier of the business
+          readOnly: true
+        customerId:
+          type: integer
+          description: Identifier of the customer
+          readOnly: true
+        loyaltyCount:
+          type: integer
+          description: Current loyalty count of customer
+    Error:
+      description: Schema for error response body
+      type: object
+      properties:
+        timestamp:
+          type: string
+        status:
+          type: integer
+        error:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+        code:
+          type: string
+        additionalMessage:
+          type: string
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    AuthenticationError:
+      description: Authentication Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized, access to this resource is not allowed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request, invalid query syntax
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BusinessError:
+      description: Business Application Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
